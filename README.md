@@ -55,3 +55,11 @@ This project is licensed under the MIT License.
 **Contact:**  
 Fernando Haeser  
 [GitHub Profile](https://github.com/FernandoHaeser)
+
+---
+
+## Ajustar seu repositorio de acordo com a main
+
+```bash
+git reset --hard origin/main
+```
