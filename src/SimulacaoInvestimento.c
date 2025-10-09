@@ -27,9 +27,10 @@ int main() {
         int opcaoInvestimento;
         double capitalTotalInvestido = 0.0;
 
-        printf("╔════════════════════════════════════════════════╗\n");
-        printf("║       SIMULADOR BÁSICO DE INVESTIMENTOS        ║\n");
-        printf("╚════════════════════════════════════════════════╝\n");
+        printf("==================================================\n");
+        printf("|       SIMULADOR BÁSICO DE INVESTIMENTOS        |\n");
+        printf("==================================================\n");
+
         printf("➤ Olá! Vamos simular o crescimento do seu dinheiro!\n\n");
 
         printf("Qual o valor que você vai investir inicialmente? R$ ");
@@ -44,22 +45,23 @@ int main() {
 
         system("clear || cls"); // limpa tela (Linux/Windows)
 
-        printf("╔══════════════════════════════════════════════════════════════════╗\n");
-        printf("║                💰 Tipos de Investimento 💰                      ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════╣\n");
-        printf("║ 1 — Tesouro Selic (Taxa ≈ 10.5%% a.a.)                           ║\n");
-        printf("║ 2 — Fundo Imobiliário (Taxa ≈ 9.0%% a.a.)                        ║\n");
-        printf("║ 3 — CDB/LCI (Taxa ≈ 11.0%% a.a.)                                 ║\n");
-        printf("║ 4 — Outra Taxa (Definida pelo usuário)                          ║\n");
-        printf("╚══════════════════════════════════════════════════════════════════╝\n");
+        printf("==================================================================\n");
+        printf("|                💰 Tipos de Investimento 💰                       |\n");
+        printf("==================================================================\n");
+        printf("| 1 - Tesouro Selic (Taxa ≈ 10.5%% a.a.)                          |\n");
+        printf("| 2 - Fundo Imobiliário (Taxa ≈ 9.0%% a.a.)                       |\n");
+        printf("| 3 - CDB/LCI (Taxa ≈ 11.0%% a.a.)                                |\n");
+        printf("| 4 - Outra Taxa (Definida pelo usuário)                         |\n");
+        printf("==================================================================\n");
+
         printf("Digite a opção desejada (1 a 4): ");
         scanf("%d", &opcaoInvestimento);
 
         system("clear || cls");
 
-        printf("╔═══════════════════════════════════════════════╗\n");
-        printf("║         ESCOLHA DO INVESTIMENTO               ║\n");
-        printf("╚═══════════════════════════════════════════════╝\n\n");
+        printf("================================================\n");
+        printf("|         ESCOLHA DO INVESTIMENTO              |\n");
+        printf("================================================\n\n");
 
         switch (opcaoInvestimento) {
             case 1:
@@ -86,9 +88,10 @@ int main() {
                 break;
         }
 
-        printf("\n╔═══════════════════════════════════════════════╗\n");
-        printf("║        INICIANDO SIMULAÇÃO DE INVESTIMENTO    ║\n");
-        printf("╚═══════════════════════════════════════════════╝\n");
+        printf("\n================================================\n");
+        printf("|        INICIANDO SIMULAÇÃO DE INVESTIMENTO   |\n");
+        printf("================================================\n");
+
 
         valorAtual = investimentoInicial;
         meses = anosSimulacao * 12;
@@ -96,7 +99,7 @@ int main() {
 
         printf("📆 Duração: %d anos (%d meses)\n", anosSimulacao, meses);
         printf("💰 Taxa Mensal: %.4f%%\n", taxaMensal * 100);
-        printf("───────────────────────────────────────────────\n");
+        printf("-----------------------------------------------\n");
 
         for (int mes = 1; mes <= meses; mes++) {
             valorAtual = valorAtual * (1.0 + taxaMensal);
@@ -111,18 +114,19 @@ int main() {
 
         double jurosGanhos = valorAtual - capitalTotalInvestido;
 
-        printf("\n╔═══════════════════════════════════════════════╗\n");
-        printf("║              RESULTADO FINAL                  ║\n");
-        printf("╚═══════════════════════════════════════════════╝\n");
+        printf("\n===============================================\n");
+        printf("|              RESULTADO FINAL                |\n");
+        printf("===============================================\n");
+
         printf("💵 Investimento Inicial: R$ %.2f\n", arredondar(investimentoInicial, 2));
         printf("📈 Aporte Mensal: R$ %.2f\n", arredondar(investMensal, 2));
         printf("🕓 Tempo Total: %d anos\n", anosSimulacao);
         printf("💹 Taxa Anual: %.2f%%\n", taxaAnual * 100);
-        printf("───────────────────────────────────────────────\n");
+        printf("-----------------------------------------------\n");
         printf("💰 Capital Investido: R$ %.2f\n", arredondar(capitalTotalInvestido, 2));
         printf("💸 Juros Ganhos: R$ %.2f\n", arredondar(jurosGanhos, 2));
         printf("🏦 Montante Final: R$ %.2f\n", arredondar(valorAtual, 2));
-        printf("───────────────────────────────────────────────\n");
+        printf("-----------------------------------------------\n");
         printf("📢 Lembre-se: Esta é uma simulação. Os valores reais podem variar.\n");
 
         // Atualizar totais
@@ -131,9 +135,10 @@ int main() {
         totalGeralJuros += jurosGanhos;
         totalGeralFinal += valorAtual;
 
-        printf("\n╔═══════════════════════════════════════════════╗\n");
-        printf("║               RESUMO GERAL                     ║\n");
-        printf("╚═══════════════════════════════════════════════╝\n");
+        printf("\n===============================================\n");
+        printf("|               RESUMO GERAL                  |\n");
+        printf("===============================================\n");
+
         printf("➤ Simulações realizadas: %d\n", totalSimulacoes);
         printf("➤ Total investido: R$ %.2f\n", arredondar(totalGeralInvestido, 2));
         printf("➤ Total em juros ganhos: R$ %.2f\n", arredondar(totalGeralJuros, 2));
