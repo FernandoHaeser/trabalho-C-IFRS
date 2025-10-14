@@ -18,25 +18,47 @@ int contador_registros = 0;
 // Funções utilitárias para leitura segura
 float ler_real_positivo(const char *mensagem) {
     float valor;
+    int scan_result;
+    
     do {
         printf("%s", mensagem);
-        scanf("%f", &valor);
+        
+        scan_result = scanf("%f", &valor);
+        
+        if (scan_result != 1) {
+            printf("Entrada inválida! Digite um número.\n");
+            while (getchar() != '\n');
+            continue;
+        }
+        
         if (valor <= 0) {
             printf("Valor inválido! Digite um número maior que zero.\n");
         }
     } while (valor <= 0);
+    
     return valor;
 }
 
 int ler_inteiro_positivo(const char *mensagem) {
     int valor;
+    int scan_result;
+    
     do {
         printf("%s", mensagem);
-        scanf("%d", &valor);
+        
+        scan_result = scanf("%d", &valor);
+        
+        if (scan_result != 1) {
+            printf("Entrada inválida! Digite um número.\n");
+            while (getchar() != '\n');
+            continue;
+        }
+        
         if (valor <= 0) {
             printf("Valor inválido! Digite um número maior que zero.\n");
         }
     } while (valor <= 0);
+    
     return valor;
 }
 
@@ -63,18 +85,29 @@ void registrar_atividade() {
     printf("|      Registrar Nova Atividade      |\n");
     printf("======================================\n");
 
-    ler_cadeia_nao_vazia("Digite um título para a atividade: ",
-                         titulo_atividade[contador_registros], 100);
+    ler_cadeia_nao_vazia("Digite um título para a atividade: ", titulo_atividade[contador_registros], 100);
 
-    printf("\nEscolha o tipo de atividade:\n");
-    printf("1. Corrida\n");
-    printf("2. Musculação\n");
-    printf("3. Yoga\n");
-    printf("4. Natação\n");
-    printf("5. Caminhada\n");
-    printf("Digite a opção: ");
     int tipo_opcao;
-    scanf("%d", &tipo_opcao);
+    do {
+        printf("\nEscolha o tipo de atividade:\n");
+        printf("1. Corrida\n");
+        printf("2. Musculação\n");
+        printf("3. Yoga\n");
+        printf("4. Natação\n");
+        printf("5. Caminhada\n");
+        printf("6. Outros\n");
+        printf("Digite a opção: ");
+        
+        if (scanf("%d", &tipo_opcao) != 1) {
+            printf("Entrada inválida! Por favor, digite um número.\n");
+            while (getchar() != '\n');
+            continue;
+        }
+        
+        if (tipo_opcao < 1 || tipo_opcao > 6) {
+            printf("Opção inválida! Por favor, escolha uma opção de 1 a 6.\n");
+        }
+    } while (tipo_opcao < 1 || tipo_opcao > 6);
 
     switch (tipo_opcao) {
         case 1: strcpy(tipo_atividade[contador_registros], "Corrida"); break;
@@ -82,11 +115,10 @@ void registrar_atividade() {
         case 3: strcpy(tipo_atividade[contador_registros], "Yoga"); break;
         case 4: strcpy(tipo_atividade[contador_registros], "Natação"); break;
         case 5: strcpy(tipo_atividade[contador_registros], "Caminhada"); break;
-        default: strcpy(tipo_atividade[contador_registros], "Outros");
+        case 6: strcpy(tipo_atividade[contador_registros], "Outros"); break;
     }
 
-    if (strcmp(tipo_atividade[contador_registros], "Corrida") == 0 ||
-        strcmp(tipo_atividade[contador_registros], "Caminhada") == 0) {
+    if (strcmp(tipo_atividade[contador_registros], "Corrida") == 0 || strcmp(tipo_atividade[contador_registros], "Caminhada") == 0) {
         ritmo_medio[contador_registros] = ler_real_positivo("Informe o ritmo médio (Km/h): ");
     } else if (strcmp(tipo_atividade[contador_registros], "Musculação") == 0) {
         ritmo_medio[contador_registros] = ler_real_positivo("Informe o peso médio utilizado (kg): ");
@@ -109,6 +141,13 @@ void registrar_atividade() {
 
 // Função exibir resumo
 void exibir_resumo() {
+    // Limpa a tela antes de exibir o resumo
+    defined(_WIN32)
+        system("cls");  // Para Windows
+    #else
+        system("clear");  // Para Linux/Mac
+    #endif
+
     if (contador_registros == 0) {
         printf("==========================================\n");
         printf("|       NENHUMA ATIVIDADE REGISTRADA     |\n");
@@ -121,14 +160,14 @@ void exibir_resumo() {
     printf("==========================================\n");
     printf("TOTAL DE ATIVIDADES: %d\n", contador_registros);
 
-    const char *tipos[] = {"Corrida", "Musculação", "Yoga", "Natação", "Caminhada"};
+    const char *tipos[] = {"Corrida", "Musculação", "Yoga", "Natação", "Caminhada", "Outros"};
 
     float soma_calorias = 0;
     float soma_tempo = 0;
     int soma_freq = 0;
     float soma_ritmo = 0;
 
-    for (int t = 0; t < 5; t++) {
+    for (int t = 0; t < 6; t++) {
         const char *tipo_atual = tipos[t];
         int encontrou = 0;
 
@@ -184,7 +223,7 @@ void exibir_resumo() {
     printf("|  ESTATÍSTICAS POR TIPO DE ATIVIDADE    |\n");
     printf("==========================================\n");
 
-    for (int t = 0; t < 5; t++) {
+    for (int t = 0; t < 6; t++) {
         const char *tipo = tipos[t];
         int qtd = 0;
         float total_cal = 0;
@@ -243,6 +282,6 @@ int main() {
                 printf("\nOpção inválida! Retornando ao menu...\n");
         }
     }
-
+    
     return 0;
 }
