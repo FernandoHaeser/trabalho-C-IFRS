@@ -76,6 +76,12 @@ void ler_cadeia_nao_vazia(const char *mensagem, char *destino, int tamanho) {
 
 // Função registrar atividade
 void registrar_atividade() {
+    #if defined(_WIN32)
+        system("cls");
+    #else
+        system("clear");
+    #endif
+
     if (contador_registros >= MAX_REGISTROS) {
         printf("\nLimite máximo de registros atingido (%d).\n", MAX_REGISTROS);
         return;
@@ -141,8 +147,7 @@ void registrar_atividade() {
 
 // Função exibir resumo
 void exibir_resumo() {
-    // Limpa a tela antes de exibir o resumo
-    defined(_WIN32)
+    #if defined(_WIN32)
         system("cls");  // Para Windows
     #else
         system("clear");  // Para Linux/Mac
@@ -257,6 +262,12 @@ int main() {
     int opcao;
 
     while (1) {
+        #if defined(_WIN32)
+            system("cls");
+        #else
+            system("clear");
+        #endif
+
         printf("======================================\n");
         printf("|   Menu de Registro de Atividades   |\n");
         printf("======================================\n");
@@ -269,17 +280,20 @@ int main() {
         switch (opcao) {
             case 1:
                 registrar_atividade();
+                printf("\nPressione ENTER para voltar ao menu...");
+                getchar(); getchar();
                 break;
             case 2:
                 exibir_resumo();
-                printf("\nDigite qualquer tecla para voltar ao menu...");
-                getchar(); getchar(); // pausa
+                printf("\nPressione ENTER para voltar ao menu...");
+                getchar(); getchar();
                 break;
             case 3:
                 printf("\nSaindo do programa. Até a próxima!\n");
                 exit(0);
             default:
                 printf("\nOpção inválida! Retornando ao menu...\n");
+                getchar(); getchar();
         }
     }
     
